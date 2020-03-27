@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+    <meta name="keywords" content="reverse complement random sequence bioinformatic">
+    
+    <title>Ragroc: Random dnA Generator and Reverse tnemelpmOC</title>
+    <link rel="stylesheet" type="text/css" href="css/index.mini.css">
+  </head>
+  <body>
+    <nav>
+      <input id="bmenub" type="checkbox" class="show">
+      <label for="bmenub" class="burger pseudo button">&#8801;</label>
+
+      <div class="menu">
+	<label class="button" for="tabs-main">Ragroc</label>
+	<label class="button" for="tabs-random">Random</label>
+	<label class="button" for="tabs-revcomp">Revcomp</label>
+      </div>
+    </nav>
+    <main>
+      <div class="nav-margin"></div>
+      <div class="tabs three full-page">
+	
+	<input id="tabs-main" type="radio" name="tabs" checked="" aria-hidden="true">
+	<input id="tabs-random" type="radio" name="tabs" aria-hidden="true">
+	<input id="tabs-revcomp" type="radio" name="tabs" aria-hidden="true">
+
+	<div class="row">
+	  <div class="card full-page">
+	    <div class="main full-avaible">
+	      <h1>Ragroc</h1>
+	      <h2>Random dnA Generator and Reverse tnemelpmOC</h2>
+	      <label class="button" for="tabs-random">Random</label>
+	      <label class="button" for="tabs-revcomp">Revcomp</label>	      
+	    </div>
+	  </div>
+
+	  <div class="card full-page">
+	    <div class="flex one five-800 full-page">
+	      <div class="full four-fifth-800 height-80">
+		<textarea id="generate_out_text" readonly=""></textarea>
+	      </div>
+	      <div class="full fifth-800 height-80">
+		<form id="generate_param">
+		  <label for="nb_sequences" class="">Number of sequences:</label>
+		  <input id="nb_sequences" class="" type="number" value="1" min="0">
+
+		  <label for="length" class="">Length:</label>
+		  <input id="length" class="" type="number" value="100" min="0">
+
+		  <fieldset>
+		    <legend>Format:</legend>
+		    <label>
+		      <input type='radio' name="format" id="none" checked="">
+		      <span class="checkable">none</span>
+		    </label>
+		    <label>
+		      <input type='radio' name="format" id="fasta">
+		      <span class="checkable">fasta</span>
+		    </label>
+		    <label>
+		      <input type='radio' name="format" id="fastq">
+		      <span class="checkable">fastq</span>
+		    </label>
+		  </fieldset>
+
+		  <fieldset>
+		    <legend>Weight of each nucleotide:</legend>
+		    <label class="" for="a_weight">A: </label>
+		    <input id="a_weight" class="" type="number" value="0.25" max="1" min="0" step="0.01"></input>
+		    <label class="" for="c_weight">C: </label>
+		    <input id="c_weight" class="" type="number" value="0.25" max="1" min="0" step="0.01"></input>
+		    <label class="" for="g_weight">G: </label>
+		    <input id="g_weight" class="" type="number" value="0.25" max="1" min="0" step="0.01"></input> 
+		    <label class="" for="t_weight">T: </label>
+		    <input id="t_weight" class="" type="number" value="0.25" max="1" min="0" step="0.01"></input>
+		  </fieldset>
+
+		  <div class="large-button">
+		    <input id="generate_submit" class="warning" type="submit" value="Submit"></input>
+		  </div>
+
+		  <fieldset>
+		    <input id="gc_percent" for="gc_percent_input" class="button" type="button" value="Set gc%"></input> 
+		    <input id="gc_percent_input" class="" type="number" value="0.5" min="0" max="1" step="0.01"></input>
+		  </fieldset>
+		</form>
+	      </div>
+	    </div>
+	  </div>
+	  <div class="card full-page">
+	    <div class="flex one five-800 center full-page">
+	      <div class="full two-fifth-800 height-80">
+		<textarea id="rc_in_text" class="full"></textarea>
+	      </div>
+	      <div class="full fifth-800 large-button">
+		<button id="rc_submit" class="warning">Submit</button>
+	      </div>
+	      <div class="full two-fifth-800 height-80">
+		<textarea id="rc_out_text" class="full" readonly=""></textarea>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+      </div>
+      <footer>
+	This page under <a href="http://www.wtfpl.net/">WTFPL v2.0</a> was created by <a href="//pierre.marijon.fr/">Pierre Marijon</a>, source code is avaible on <a href="//github.com/natir/ragroc">github</a>
+      </footer>
+    </main>
+    <script type="module" src="load.js"></script>
+  </body>
+</html>

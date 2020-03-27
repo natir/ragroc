@@ -1,0 +1,23 @@
+{
+  "name": "ragroc",
+  "collaborators": [
+    "Pierre Marijon <pmarijon@mpi-inf.mpg.de>"
+  ],
+  "description": "Ragroc: Is website for generate random dna and perform reverse complement",
+  "version": "0.1.0",
+  "license": "WTFPL2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/natir/ragroc/"
+  },
+  "files": [
+    "ragroc_bg.wasm",
+    "ragroc.js",
+    "ragroc.d.ts",
+    "LICENSE_APACHE",
+    "LICENSE_MIT"
+  ],
+  "module": "ragroc.js",
+  "types": "ragroc.d.ts",
+  "sideEffects": false
+}
