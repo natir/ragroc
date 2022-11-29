@@ -1,6 +1,6 @@
 #![cfg(target_arch = "wasm32")]
 
-mod app;
+mod front;
 
 use wasm_bindgen::prelude::*;
 
@@ -12,6 +12,5 @@ extern "C" {
 
 #[wasm_bindgen(start)]
 pub fn run() {
-    yew::Renderer::<app::App>::new().render();
-    log("Hello from the console!");
+    yew::Renderer::<front::Ragroc>::new().render();
 }
