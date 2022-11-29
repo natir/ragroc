@@ -1,0 +1,85 @@
+use std::process;
+use xtask_wasm::{anyhow::Result, clap};
+
+mod static_dep;
+
+#[derive(clap::Parser)]
+struct Opt {
+    #[clap(long = "log", default_value = "Info")]
+    log_level: log::LevelFilter,
+    #[clap(subcommand)]
+    cmd: Command,
+}
+
+#[derive(clap::Parser)]
+enum Command {
+    Dist(Build),
+    Watch(xtask_wasm::Watch),
+    Start(xtask_wasm::DevServer),
+}
+
+#[derive(clap::Parser)]
+struct Build {
+    /// Optimize the generated package using `wasm-opt`.
+    #[clap(long)]
+    optimize: bool,
+
+    #[clap(flatten)]
+    base: xtask_wasm::Dist,
+}
+
+fn main() -> Result<()> {
+    let opt: Opt = clap::Parser::parse();
+
+    env_logger::builder()
+        .filter(Some("xtask"), opt.log_level)
+        .init();
+
+    match opt.cmd {
+        Command::Dist(arg) => {
+            log::info!("Generating package...");
+
+            let scss = static_dep::StaticDep::new(
+                "https://codeload.github.com/picocss/pico/tar.gz/refs/tags/v1.5.6".to_string(),
+                std::path::Path::new("ragroc/static/pico").to_path_buf(),
+            );
+
+            scss.run(std::process::Command::new("tar").args([
+                "-xvz",
+                "--strip-components=2",
+                "--one-top-level=pico",
+                "--directory",
+                "ragroc/static",
+                "pico-1.5.6/scss",
+                "-f",
+            ]))?;
+
+            let dist_result = arg
+                .base
+                .static_dir_path("ragroc/static")
+                .app_name("ragroc")
+                .run("ragroc")?;
+
+            if arg.optimize {
+                xtask_wasm::WasmOpt::level(1)
+                    .shrink(2)
+                    .optimize(dist_result.wasm)?;
+            }
+        }
+        Command::Watch(arg) => {
+            log::info!("Watching for changes and check...");
+
+            let mut command = process::Command::new("cargo");
+            command.arg("check");
+
+            arg.run(command)?;
+        }
+        Command::Start(arg) => {
+            log::info!("Starting the development server...");
+
+            arg.arg("dist").start(xtask_wasm::default_dist_dir(false))?;
+        }
+    }
+
+    Ok(())
+}

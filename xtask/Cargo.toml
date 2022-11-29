@@ -1,0 +1,16 @@
+[package]
+name = "xtask"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+# Logging management
+env_logger = { version = "0.9" }
+log        = { version = "0.4" }
+anyhow     = { version = "1" }
+
+# Buisness
+xtask-wasm = { version = "0.1" , features = ["wasm-opt", "sass"]}
+tempfile   = { version = "3" }

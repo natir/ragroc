@@ -1,0 +1,6 @@
+[workspace]
+default-members = ["ragroc"]
+members = [
+	"ragroc",
+	"xtask",
+]
